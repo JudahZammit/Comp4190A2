@@ -1,0 +1,17 @@
+We first split the data using a windowed absoluted deviation from the global mean absolute deviation.
+
+Then we performed feature extraction on each data point instead of working with the original time series.
+
+We considered three different sets of features:
+-The features extracted from the EMG sensor
+-The features extractide from the physical data sensors
+-Both of the above
+
+We found that traditional machine learning models, specificly tree based methods, perform just as well on the physical 
+data as our neural network
+
+However, for the EMG data, the neural network outperformed the tree based methods. This was true of using both
+physical and EMG data, as well.
+
+It is important to note that ALL methods achieved 100% accuracy on the test data. It was only 
+in our 5-fold cross verification that any change in accuracy was observed.
