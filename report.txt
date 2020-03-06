@@ -1,0 +1,12 @@
+ 	 Temp        PRES     DEWP      RAIN      WSPM      WIND      multidimensional
+Train	 0.00138     0.00132  0.00130   0.00132   0.00122   0.001308  6553
+
+
+Test	 0.06969     0.06507  0.0645    0.06510   0.07022   0.07072   13649
+
+
+During the experiment, we observe that, if we use the attribute 'dewp' to train the model, we will obtain the least mean squared error. It can also be implied from the plot that the pm 2.5 has a positive correlation with 'dewp'. We also observe that the training error is minimized if we use 'WSPM' to predict PM2.5. However, the test error is not the least, which means using this model may cause overfitting problem. The multidimensional model behaves so bad is simply because instead of having 1 attribute, we use gradient descent to minimize the error simultaneously on 6 attributes, which makes the error significantly bigger than the other 6 models.
+
+In general, the training error is larger than the test error, so obviously our model may over fits the data, the reason is that our training set is significantly larger than the test set. We did not use cross validation, nor did we add a regularization term in the end of the loss function. 
+
+On the other hand we may have under-fitting problem. If we plot the data, we will immediately see probably linear regression is not a good idea for this problem,(data is not scattered near a particular line) we should use polynomial regression instead. Furthermore, we split the data into training and test simply because of their years. This may also cause under-fitting problem. We should first shuffle the data.
