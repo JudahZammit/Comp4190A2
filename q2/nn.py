@@ -65,6 +65,20 @@ def evaluate_model(X_train,y_train,X_test,y_test):
 
     return cv_acc,train_acc,test_acc
 
+train = pd.read_csv('./train/phys.csv',index_col =0)[['orin_y_mad','orin_y_median','label']]
+val = pd.read_csv('./val/phys.csv',index_col =0)[['orin_y_mad','orin_y_median','label']]
+
+X_train = train.drop('label',axis = 1).to_numpy()
+y_train = train['label'].to_numpy()
+y_train = sk.preprocessing.OneHotEncoder(sparse = False
+        ).fit_transform(y_train.reshape(-1,1))
+
+X_test = val.drop('label',axis = 1).to_numpy()
+y_test = val['label'].to_numpy()
+y_test = sk.preprocessing.OneHotEncoder(sparse = False
+        ).fit_transform(y_test.reshape(-1,1))
+single_avg_acc,single_train_acc,single_test_acc = evaluate_model(X_train,y_train,X_test,y_test)
+
 train = pd.read_csv('./train/emg.csv',index_col =0)
 val = pd.read_csv('./val/emg.csv',index_col =0)
 
@@ -113,6 +127,13 @@ print()
 print("CV Accuracy: " + str(pe_avg_acc))
 print("Train Accuracy: " + str(pe_train_acc))
 print("Test Accuracy: " + str(pe_test_acc))
+
+print()
+print("Y-Orintation:")
+print()
+print("CV Accuracy: " + str(single_avg_acc))
+print("Train Accuracy: " + str(single_train_acc))
+print("Test Accuracy: " + str(single_test_acc))
 
 print()
 print("EMG:")

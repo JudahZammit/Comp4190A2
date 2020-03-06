@@ -18,7 +18,6 @@ cv_score = cross_val_score(model,X_train,y_train,cv=5).mean()
 model.fit(X_train,y_train)
 train_acc = model.score(X_train,y_train)
 test_acc = model.score(X_test,y_test)
-
 print()
 print("EMG+PHYS:")
 print()
@@ -71,3 +70,27 @@ print()
 print("CV Accuracy: " + str(cv_score))
 print("Train Accuracy: " + str(train_acc))
 print("Test Accuracy: " + str(test_acc))
+
+train = pd.read_csv('./train/phys.csv',index_col =0)[['orin_y_mad','orin_y_median','label']]
+val = pd.read_csv('./val/phys.csv',index_col =0)[['orin_y_mad','orin_y_median','label']]
+
+X_train = train.drop('label',axis = 1)
+y_train = train['label']
+
+X_test = val.drop('label',axis = 1)
+y_test = val['label']
+
+model = RandomForestClassifier()
+cv_score = cross_val_score(model,X_train,y_train,cv=5).mean()
+
+model.fit(X_train,y_train)
+train_acc = model.score(X_train,y_train)
+test_acc = model.score(X_test,y_test)
+
+print()
+print("Y-Orintation:")
+print()
+print("CV Accuracy: " + str(cv_score))
+print("Train Accuracy: " + str(train_acc))
+print("Test Accuracy: " + str(test_acc))
+
